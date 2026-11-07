@@ -1,31 +1,47 @@
-# 🌸 PastelType
-
 <div align="center">
 
-  <img src="https://raw.githubusercontent.com/PanduAsmara/PastelType/main/index.html" alt="PastelType Banner" width="0" />
-  
-  <h1>🌸 PastelType</h1>
-  <p><strong>Aesthetic & Elegant Typing Speed Test web app with pastel accents inspired by Monkeytype</strong></p>
+  <img src="./assets/banner.svg" alt="PastelType Banner" width="100%" />
 
-  <p>
-    <a href="https://github.com/PanduAsmara/PastelType/stargazers"><img src="https://img.shields.io/github/stars/PanduAsmara/PastelType?color=e27396&style=for-the-badge" alt="Stars"></a>
-    <a href="https://github.com/PanduAsmara/PastelType/network/members"><img src="https://img.shields.io/github/forks/PanduAsmara/PastelType?color=8675e6&style=for-the-badge" alt="Forks"></a>
-    <a href="https://github.com/PanduAsmara/PastelType/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-5c8760?style=for-the-badge" alt="License"></a>
+  <br />
+  <br />
+
+  <p align="center">
+    <a href="https://panduasmara.github.io/PastelType/">
+      <img src="https://img.shields.io/badge/🌐_LIVE_DEMO-COBA_SEKARANG-e27396?style=for-the-badge&logoColor=white" alt="Live Demo">
+    </a>
+    <a href="https://github.com/PanduAsmara/PastelType/blob/main/LICENSE">
+      <img src="https://img.shields.io/badge/License-MIT-5c8760?style=for-the-badge" alt="License">
+    </a>
+    <a href="https://github.com/PanduAsmara/PastelType/stargazers">
+      <img src="https://img.shields.io/github/stars/PanduAsmara/PastelType?color=8675e6&style=for-the-badge" alt="Stars">
+    </a>
     <img src="https://img.shields.io/badge/Zero-Dependencies-e67d58?style=for-the-badge" alt="Zero Dependencies">
   </p>
 
-  <p>
-    <em>Tes kecepatan mengetik berbasis web yang dirancang dengan estetika visual pastel yang lembut, tipografi elegan, audio synthesizer mechanical keyboard, serta kurva performa interaktif tanpa library eksternal.</em>
+  <p align="center">
+    🎮 <strong>Live Demo:</strong> <a href="https://panduasmara.github.io/PastelType/"><strong>https://panduasmara.github.io/PastelType/</strong></a>
+  </p>
+
+  <p align="center">
+    <em>Aplikasi tes kecepatan mengetik berbasis web yang dirancang dengan estetika visual pastel yang menenangkan, tipografi elegan, mechanical keyboard procedural audio synthesizer, serta grafik kurva performa interaktif tanpa library eksternal.</em>
   </p>
 
 </div>
 
 ---
 
+## 🌸 Tentang PastelType
+
+**PastelType** adalah aplikasi *speed typing test* modern yang terinspirasi dari antarmuka minimalis **Monkeytype**, namun didesain ulang dengan sentuhan **warna-warna pastel yang lembut, hangat, dan ramah di mata**. 
+
+Dibuat menggunakan standar murni web modern (*HTML5, CSS3, ES6+ JavaScript*) tanpa library pihak ketiga (Zero Dependencies), membuat aplikasi ini memiliki waktu muat secepat kilat (*sub-second load*) dan dapat berjalan langsung di peramban apa pun.
+
+---
+
 ## ✨ Fitur Utama (Highlights)
 
-### 🎨 6 Tema Warna Pastel Menenangkan
-Didesain dengan rasio kontras visual yang seimbang dan ramah di mata untuk sesi mengetik yang nyaman dan bebas distraksi:
+### 🎨 6 Palet Tema Warna Pastel Menenangkan
+Didesain dengan rasio kontras visual yang seimbang untuk sesi mengetik yang nyaman dan bebas distraksi:
 
 | Tema | Nuansa Warna | Deskripsi |
 | :--- | :---: | :--- |
@@ -84,19 +100,19 @@ Dibangun langsung menggunakan **Web Audio API** bawaan peramban — **100% tanpa
 
 ## 🚀 Cara Menjalankan
 
-Aplikasi ini bersifat **zero-dependency** murni menggunakan standar web modern (HTML5, CSS3, ES6+ JavaScript), sehingga sangat fleksibel dijalankan di perangkat mana pun.
+### Opsi 1: Buka Live Demo (Paling Mudah)
+Langsung buka tautan berikut di browser:
+👉 **[https://panduasmara.github.io/PastelType/](https://panduasmara.github.io/PastelType/)**
 
-### Opsi 1: Buka Langsung (Tanpa Instalasi)
-1. Clone atau unduh repositori ini:
+### Opsi 2: Buka Langsung Secara Lokal (Tanpa Instalasi)
+1. Clone repositori:
    ```bash
    git clone https://github.com/PanduAsmara/PastelType.git
    ```
-2. Buka folder repositori dan klik dua kali berkas `index.html` (atau `start.bat` untuk Windows).
-3. Selesai! PastelType siap digunakan langsung di browser favorit Anda.
+2. Buka folder proyek dan klik dua kali berkas `index.html` (atau `start.bat` untuk Windows).
+3. Selesai! PastelType langsung berjalan di browser Anda.
 
-### Opsi 2: Menggunakan Local Development Server
-Jika Anda ingin menyajikannya lewat HTTP server lokal:
-
+### Opsi 3: Menggunakan Local Development Server
 ```bash
 # Menggunakan Python
 python -m http.server 8080
@@ -105,12 +121,6 @@ python -m http.server 8080
 npx serve .
 ```
 Lalu buka `http://localhost:8080` di browser.
-
-### Opsi 3: Deploy ke GitHub Pages (1 Menit)
-1. Buka repositori di GitHub.
-2. Masuk ke **Settings** &rarr; **Pages**.
-3. Pada bagian **Build and deployment**, pilih branch `main` dan folder `/ (root)`.
-4. Klik **Save**. PastelType Anda akan live secara global dalam hitungan detik!
 
 ---
 
@@ -130,9 +140,11 @@ Lalu buka `http://localhost:8080` di browser.
 ```
 PastelType/
 ├── index.html        # Halaman utama aplikasi, modal, dan struktur tampilan
-├── README.md         # Dokumentasi lengkap proyek
+├── README.md         # Dokumentasi lengkap proyek & showcase
 ├── LICENSE           # Lisensi Open Source (MIT)
 ├── start.bat         # Launcher praktis untuk Windows
+├── assets/
+│   └── banner.svg    # Banner vektor resolusi tinggi PastelType
 ├── css/
 │   └── style.css     # Sistem desain tema pastel, layout, dan animasi caret
 └── js/
@@ -147,19 +159,9 @@ PastelType/
 
 ---
 
-## 🛠️ Kustomisasi & Pilihan Font
-
-Anda dapat memilih font monospace sesuai preferensi melalui menu **Pengaturan**:
-* **JetBrains Mono** *(Default)*
-* **Fira Code**
-* **Roboto Mono**
-* **Outfit Modern**
-
----
-
 ## 📄 Lisensi
 
-Proyek ini dilisensikan di bawah lisensi open-source [MIT License](LICENSE). Bebas digunakan, dimodifikasi, dan dikembangkan untuk keperluan pribadi maupun edukasi.
+Proyek ini dilisensikan di bawah lisensi open-source [MIT License](LICENSE). Bebas digunakan, dimodifikasi, dan didistribusikan.
 
 ---
 
