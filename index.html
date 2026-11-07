@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="sakura">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PastelType - Tes Kecepatan Mengetik Elegan & Pastel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
+</head>
+<body>
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="header">
+            <a href="#" class="logo-group" onclick="window.location.reload(); return false;">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="4" />
+                        <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M8 16h8" />
+                    </svg>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:0.5rem;">
+                    <span class="logo-text">PastelType</span>
+                    <span class="logo-badge">Pastel Edition</span>
+                </div>
+            </a>
+
+            <div class="header-actions">
+                <div id="header-pb" class="pb-badge" style="display: none;">
+                    <span>PB:</span> <strong>0 WPM</strong>
+                </div>
+
+                <button class="header-btn" id="theme-quick-btn" title="Ganti Tema Warna Pastel">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 3a9 9 0 0 1 0 18v-18z" fill="currentColor"/>
+                    </svg>
+                    <span>Tema</span>
+                </button>
+
+                <button class="header-btn" id="history-btn" title="Riwayat Tes Mengetik">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <polyline points="12 6 12 12 16 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span>Riwayat</span>
+                </button>
+
+                <button class="header-btn" id="settings-btn" title="Pengaturan & Kustomisasi">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" fill="none" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span>Pengaturan</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- CONFIGURATION TOOLBAR (Monkeytype Style) -->
+        <div class="config-bar-wrapper">
+            <div class="config-bar" id="config-bar">
+                <!-- Modes -->
+                <div class="config-group">
+                    <button class="config-btn active" data-config-mode="time" title="Mode Batas Waktu">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><polyline points="12 6 12 12 16 14" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                        Waktu
+                    </button>
+                    <button class="config-btn" data-config-mode="words" title="Mode Jumlah Kata">
+                        <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                        Kata
+                    </button>
+                    <button class="config-btn" data-config-mode="quote" title="Mode Kutipan Inspiratif">
+                        <svg viewBox="0 0 24 24"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1zM15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" fill="currentColor"/></svg>
+                        Kutipan
+                    </button>
+                    <button class="config-btn" data-config-mode="zen" title="Mode Zen Mengetik Bebas">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
+                        Zen
+                    </button>
+                </div>
+
+                <div class="config-divider"></div>
+
+                <!-- Time options -->
+                <div class="config-group" id="time-options-group">
+                    <button class="config-btn" data-config-time="15">15s</button>
+                    <button class="config-btn active" data-config-time="30">30s</button>
+                    <button class="config-btn" data-config-time="60">60s</button>
+                    <button class="config-btn" data-config-time="120">120s</button>
+                </div>
+
+                <!-- Word count options -->
+                <div class="config-group" id="word-options-group" style="display: none;">
+                    <button class="config-btn" data-config-words="10">10</button>
+                    <button class="config-btn active" data-config-words="25">25</button>
+                    <button class="config-btn" data-config-words="50">50</button>
+                    <button class="config-btn" data-config-words="100">100</button>
+                </div>
+
+                <div class="config-divider"></div>
+
+                <!-- Toggles -->
+                <div class="config-group">
+                    <button class="config-btn" id="toggle-punctuation" title="Tanda Baca">
+                        <span>@ tanda baca</span>
+                    </button>
+                    <button class="config-btn" id="toggle-numbers" title="Angka">
+                        <span># angka</span>
+                    </button>
+                </div>
+
+                <div class="config-divider"></div>
+
+                <!-- Language options -->
+                <div class="config-group" id="lang-options-group">
+                    <button class="config-btn active" data-config-lang="id" title="Bahasa Indonesia">ID</button>
+                    <button class="config-btn" data-config-lang="en" title="English">EN</button>
+                    <button class="config-btn" data-config-lang="code" title="Pemrograman (Code)">Code</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN TEST SECTION -->
+        <main class="test-section" id="test-section">
+            <input type="text" class="hidden-input" id="hidden-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+
+            <!-- Live Indicators -->
+            <div class="live-info-bar">
+                <div class="live-timer" id="live-timer">30<span class="timer-unit">s</span></div>
+                <div class="live-wpm-pill" id="live-wpm">
+                    <span id="live-wpm-val">0</span> WPM
+                </div>
+            </div>
+
+            <!-- Words Viewport -->
+            <div class="words-container" id="words-container">
+                <div id="caret" class="caret caret-bar"></div>
+                <div class="words-wrapper" id="words-wrapper"></div>
+            </div>
+
+            <!-- Out of Focus Warning Overlay -->
+            <div class="focus-overlay" id="focus-overlay">
+                <div class="focus-overlay-pill">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="8" x2="12" y2="12"/>
+                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                    </svg>
+                    <span>Klik atau tekan tombol apa pun untuk mulai mengetik</span>
+                </div>
+            </div>
+
+            <!-- Quick Restart Bar -->
+            <div class="restart-bar">
+                <button class="restart-btn" id="restart-btn" title="Ulangi Tes (Tab)">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+                    </svg>
+                    <span>Ulangi Tes</span>
+                </button>
+                <span class="restart-hint">atau tekan <kbd>Tab</kbd></span>
+            </div>
+        </main>
+
+        <!-- RESULTS DASHBOARD (Hidden until finished) -->
+        <section class="results-container" id="results-container">
+            <div class="results-card">
+                <!-- Hero stats -->
+                <div class="results-hero">
+                    <div class="hero-stat">
+                        <span class="hero-stat-label">Kecepatan Mengetik</span>
+                        <div class="hero-stat-val">
+                            <span id="result-wpm">0</span>
+                            <span style="font-size:1.4rem; color:var(--text-subtle); font-weight:600;">WPM</span>
+                        </div>
+                        <div id="result-pb-badge" class="hero-pb-pill" style="display: none;">
+                            🏆 Rekor Pribadi Baru! (PB)
+                        </div>
+                    </div>
+
+                    <div class="hero-stat">
+                        <span class="hero-stat-label">Akurasi</span>
+                        <div class="hero-stat-val acc" id="result-acc">0%</div>
+                    </div>
+
+                    <div class="results-substats">
+                        <div class="substat-box">
+                            <span class="substat-label">Raw WPM</span>
+                            <span class="substat-val" id="result-raw">0</span>
+                        </div>
+                        <div class="substat-box">
+                            <span class="substat-label">Konsistensi</span>
+                            <span class="substat-val" id="result-consistency">0%</span>
+                        </div>
+                        <div class="substat-box">
+                            <span class="substat-label">Waktu</span>
+                            <span class="substat-val" id="result-time">0s</span>
+                        </div>
+                        <div class="substat-box">
+                            <span class="substat-label">Karakter</span>
+                            <span class="substat-val" id="result-chars" style="font-size:1.1rem;">0/0/0/0</span>
+                            <span class="substat-detail">benar/salah/ekstra/terlewat</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Chart -->
+                <div class="chart-card" id="chart-container"></div>
+
+                <!-- Action buttons -->
+                <div class="results-actions">
+                    <button class="primary-btn" id="result-restart-btn">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                        <span>Tes Lagi (Tab)</span>
+                    </button>
+                    <button class="secondary-btn" id="share-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <circle cx="18" cy="5" r="3"/>
+                            <circle cx="6" cy="12" r="3"/>
+                            <circle cx="18" cy="19" r="3"/>
+                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                        </svg>
+                        <span>Bagikan Hasil</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="footer-links">
+                <span style="display:flex; align-items:center; gap:0.4rem;">
+                    🌸 PastelType &bull; Dibuat dengan aksen pastel yang elegan
+                </span>
+            </div>
+            <div class="footer-links">
+                <span class="footer-link">
+                    <kbd>Tab</kbd> Ulangi
+                </span>
+                <span class="footer-link">
+                    <kbd>Esc</kbd> Reset
+                </span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- SETTINGS MODAL -->
+    <div class="modal-backdrop" id="settings-modal">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                    </svg>
+                    <span>Pengaturan & Kustomisasi</span>
+                </div>
+                <button class="modal-close-btn" title="Tutup">
+                    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2.5"/><line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2.5"/></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Theme Palette Selector -->
+                <div>
+                    <label class="setting-title" style="display:block; margin-bottom:0.75rem;">Pilihan Tema Pastel</label>
+                    <div class="theme-grid">
+                        <div class="theme-card active" data-theme="sakura">
+                            <div class="theme-swatches">
+                                <span class="theme-swatch" style="background:#faf5f6;"></span>
+                                <span class="theme-swatch" style="background:#e27396;"></span>
+                                <span class="theme-swatch" style="background:#fdedf1;"></span>
+                            </div>
+                            <span class="theme-name">Sakura Blossom 🌸</span>
+                        </div>
+
+                        <div class="theme-card" data-theme="matcha">
+                            <div class="theme-swatches">
+                                <span class="theme-swatch" style="background:#f4f6f2;"></span>
+                                <span class="theme-swatch" style="background:#5c8760;"></span>
+                                <span class="theme-swatch" style="background:#eaf1e8;"></span>
+                            </div>
+                            <span class="theme-name">Matcha Latte 🍵</span>
+                        </div>
+
+                        <div class="theme-card" data-theme="lavender">
+                            <div class="theme-swatches">
+                                <span class="theme-swatch" style="background:#f6f5fc;"></span>
+                                <span class="theme-swatch" style="background:#8675e6;"></span>
+                                <span class="theme-swatch" style="background:#eeebff;"></span>
+                            </div>
+                            <span class="theme-name">Pastel Lavender ☁️</span>
+                        </div>
+
+                        <div class="theme-card" data-theme="peach">
+                            <div class="theme-swatches">
+                                <span class="theme-swatch" style="background:#fdf7f2;"></span>
+                                <span class="theme-swatch" style="background:#e67d58;"></span>
+                                <span class="theme-swatch" style="background:#fdede6;"></span>
+                            </div>
+                            <span class="theme-name">Peach Gelato 🍑</span>
+                        </div>
+
+                        <div class="theme-card" data-theme="lemon">
+                            <div class="theme-swatches">
+                                <span class="theme-swatch" style="background:#fdfdf5;"></span>
+                                <span class="theme-swatch" style="background:#c99834;"></span>
+                                <span class="theme-swatch" style="background:#fbf5dc;"></span>
+                            </div>
+                            <span class="theme-name">Lemon Meringue 🍋</span>
+                        </div>
+
+                        <div class="theme-card" data-theme="midnight">
+                            <div class="theme-swatches">
+                                <span class="theme-swatch" style="background:#1a1b24;"></span>
+                                <span class="theme-swatch" style="background:#a78bfa;"></span>
+                                <span class="theme-swatch" style="background:#67e8f9;"></span>
+                            </div>
+                            <span class="theme-name">Midnight Pastel 🌌</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Font Selection -->
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <span class="setting-title">Jenis Font Mengetik</span>
+                        <span class="setting-desc">Pilihan font monospace yang jernih dan nyaman di mata</span>
+                    </div>
+                    <select class="custom-select" id="setting-font">
+                        <option value="jetbrains">JetBrains Mono</option>
+                        <option value="fira">Fira Code</option>
+                        <option value="roboto">Roboto Mono</option>
+                        <option value="outfit">Outfit Modern</option>
+                    </select>
+                </div>
+
+                <!-- Caret Style -->
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <span class="setting-title">Gaya Kursor (Caret)</span>
+                        <span class="setting-desc">Tampilan indikator kursor huruf aktif</span>
+                    </div>
+                    <select class="custom-select" id="setting-caret">
+                        <option value="bar">Garis Halus (Smooth Bar)</option>
+                        <option value="block">Blok Lembut (Soft Block)</option>
+                        <option value="underline">Garis Bawah (Underline)</option>
+                        <option value="outline">Bingkai (Outline)</option>
+                    </select>
+                </div>
+
+                <!-- Mechanical Switch Sound -->
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <span class="setting-title">Efek Suara Ketikan (Keyboard Sound)</span>
+                        <span class="setting-desc">Simulasi audio synthesizer mechanical switch</span>
+                    </div>
+                    <select class="custom-select" id="setting-sound">
+                        <option value="cream">Cream / Lubed Switch (Thocky)</option>
+                        <option value="thock">Deep Acoustic Thock</option>
+                        <option value="clicky">Blue Switch (Crisp Click)</option>
+                        <option value="bubble">Pastel Bubble Pop 🫧</option>
+                        <option value="typewriter">Mesin Tik Antik</option>
+                        <option value="off">Mute / Tanpa Suara</option>
+                    </select>
+                </div>
+
+                <!-- Sound Volume Slider -->
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <span class="setting-title">Volume Suara</span>
+                        <span class="setting-desc">Kekerasan efek audio ketika mengetik</span>
+                    </div>
+                    <input type="range" id="setting-volume" min="0" max="100" value="45" style="accent-color:var(--accent-primary); width: 140px; cursor: pointer;">
+                </div>
+
+                <!-- Live WPM toggle -->
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <span class="setting-title">Tampilkan WPM Real-time</span>
+                        <span class="setting-desc">Lihat kecepatan mengetik secara langsung saat tes berlangsung</span>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="setting-live-wpm" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <!-- Sound Enabled Toggle -->
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <span class="setting-title">Aktifkan Suara</span>
+                        <span class="setting-desc">Putar efek suara saat mengetik huruf</span>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="setting-sound-enabled" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HISTORY MODAL -->
+    <div class="modal-backdrop" id="history-modal">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                    <span>Riwayat Tes Mengetik</span>
+                </div>
+                <button class="modal-close-btn" title="Tutup">
+                    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2.5"/><line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2.5"/></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="history-table-wrapper">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>WPM</th>
+                                <th>Akurasi</th>
+                                <th>Raw</th>
+                                <th>Konsistensi</th>
+                                <th>Mode</th>
+                                <th>Tanggal</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-table-body">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="display:flex; justify-content:flex-end; margin-top:1rem;">
+                    <button class="secondary-btn" id="clear-history-btn" style="color:var(--char-incorrect); border-color:var(--char-incorrect);">
+                        Hapus Semua Riwayat
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast" id="toast"></div>
+
+    <!-- APPLICATION SCRIPTS -->
+    <script src="js/bundle.js"></script>
+</body>
+</html>
